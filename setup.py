@@ -22,7 +22,7 @@ setup(
         "cheroot==8.5.2",
         "CherryPy==18.6.1",
         "construct==2.10.67",
-        "cryptography==35.0.0",
+        "cryptography<39,>=38.0.0",
         "ed25519==1.5",
         "h11==0.12.0",
         "httpcore==0.13.7",
