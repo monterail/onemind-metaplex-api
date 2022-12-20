@@ -179,7 +179,7 @@ def unpack_metadata_account(data):
 
 def get_metadata(client, mint_key):
     metadata_account = get_metadata_account(mint_key)
-    data = base64.b64decode(client.get_account_info(metadata_account)['result']['value']['data'][0])
+    data = client.get_account_info(metadata_account).value.data
     metadata = unpack_metadata_account(data)
     return metadata
 
