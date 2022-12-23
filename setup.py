@@ -4,7 +4,7 @@ setup(
     name='onemind-metaplex-api',
     version='1.0',
     packages=['api', 'metaplex'],
-    url='https://github.com/metaplex-foundation/python-api',
+    url='https://github.com/monterail/onemind-metaplex-api',
     license='',
     author=' Metaplex Foundation',
     author_email='',
