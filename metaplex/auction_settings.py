@@ -52,8 +52,8 @@ class AuctionParser(SolanaParser):
 
         state = self.decode_bytes(DecoderTypes.INTEGER, 1, "state", AuctionStates)
         if state in self.USER_AUCTION_STATES:
-            self.decode_bytes(DecoderTypes.INTEGER, 8, "amount")
             self.decode_bytes(DecoderTypes.STRING, 32, "user")
+            self.decode_bytes(DecoderTypes.INTEGER, 8, "amount")
 
         # settings
         self.decode_bytes(DecoderTypes.STRING, 8, "auction_id")
