@@ -12,6 +12,14 @@ class SolanaParser:
         return self.client.get_transaction(self.transaction_hash)
 
     @cached_property
+    def account_keys(self):
+        return self.transactions.value.transaction.transaction.message.account_keys
+
+    @cached_property
+    def inner_instructions(self):
+        return self.transactions.value.transaction.meta.inner_instructions
+
+    @cached_property
     def token_balances(self):
         return self.transactions.value.transaction.meta.post_token_balances
 
