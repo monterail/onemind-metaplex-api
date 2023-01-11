@@ -1,7 +1,7 @@
 import base58
 from solana.publickey import PublicKey
 
-from metaplex.base import SolanaParser
+from metaplex.parsers.base import SolanaParser
 from metaplex.enums import AuctionStates, AuctionTypes, DecoderTypes
 
 
