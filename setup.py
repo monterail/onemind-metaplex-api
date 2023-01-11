@@ -1,9 +1,9 @@
-from setuptools import setup
+from setuptools import setup, find_packages
 
 setup(
     name='onemind-metaplex-api',
     version='1.0',
-    packages=['api', 'metaplex'],
+    packages=find_packages(),
     url='https://github.com/monterail/onemind-metaplex-api',
     license='',
     author=' Metaplex Foundation',
