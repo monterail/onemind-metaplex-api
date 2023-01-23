@@ -20,13 +20,17 @@ class SolanaParser:
         return self.transactions.value.transaction.meta.inner_instructions
 
     @cached_property
-    def token_balances(self):
+    def pre_token_balances(self):
+        return self.transactions.value.transaction.meta.pre_token_balances
+
+    @cached_property
+    def post_token_balances(self):
         return self.transactions.value.transaction.meta.post_token_balances
 
     @cached_property
     def auction_account(self):
         return [
-            o.owner for o in self.token_balances
+            o.owner for o in self.post_token_balances
             if int(o.ui_token_amount.amount) > 0
         ][0]
 
