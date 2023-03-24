@@ -1,5 +1,7 @@
-from functools import cached_property
+import logging
+
 from solders.signature import Signature
+from solana.exceptions import SolanaRpcException
 
 
 class SolanaParser:
@@ -7,27 +9,31 @@ class SolanaParser:
         self.client = client
         self.transaction_hash = Signature.from_string(transaction_hash)
 
-    @cached_property
+    @property
     def transactions(self):
-        return self.client.get_transaction(self.transaction_hash)
+        try:
+            return self.client.get_transaction(self.transaction_hash)
+        except SolanaRpcException as e:
+            logging.error(f"SOLANA RPC ERROR: {e}")
+            return
 
-    @cached_property
+    @property
     def account_keys(self):
         return self.transactions.value.transaction.transaction.message.account_keys
 
-    @cached_property
+    @property
     def inner_instructions(self):
         return self.transactions.value.transaction.meta.inner_instructions
 
-    @cached_property
+    @property
     def pre_token_balances(self):
         return self.transactions.value.transaction.meta.pre_token_balances
 
-    @cached_property
+    @property
     def post_token_balances(self):
         return self.transactions.value.transaction.meta.post_token_balances
 
-    @cached_property
+    @property
     def auction_account(self):
         return [
             o.owner for o in self.post_token_balances
