@@ -1,5 +1,8 @@
+import logging
+
 import base58
 from solana.publickey import PublicKey
+from solana.exceptions import SolanaRpcException
 
 from metaplex.parsers.base import SolanaParser
 from metaplex.enums import AuctionStates, AuctionTypes, DecoderTypes
@@ -8,9 +11,12 @@ from metaplex.enums import AuctionStates, AuctionTypes, DecoderTypes
 class AuctionParser(SolanaParser):
     def __init__(self, client, transaction_hash):
         super().__init__(client, transaction_hash)
-        self.data = self.client.get_account_info(
-            PublicKey(self.auction_account)
-        ).value.data
+        try:
+            self.data = self.client.get_account_info(
+                PublicKey(self.auction_account)
+            ).value.data
+        except SolanaRpcException as e:
+            logging.error(f"SOLANA ERROR: {e}")
         self.i = 0
         self.auction_data = {}
 
